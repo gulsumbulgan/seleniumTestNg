@@ -1,34 +1,33 @@
 package utilites;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesReadingUtil {
-    private static Properties properties=new Properties();
-    //encapsulation method, data hiding
+    public static void main(String[] args) throws IOException {
+        String pathForStreamFile="configuration.properties";
+        FileOutputStream fileOutputStream=new FileOutputStream(pathForStreamFile);
+
+    }
+    public static Properties properties=new Properties();
 
     static {
-        //will get execute before everything
-        //get the path and store in a string
-        String pathForPropertiesFile="configuration.properties";
 
-        //open the file use Fileinputstream method
+        String pathForStreamFile="configuration.properties";
 
-        try {
-            FileInputStream fileInputStream=new FileInputStream(pathForPropertiesFile);
-            //load the file to properties object by using load method
+        try{
+            FileInputStream fileInputStream=new FileInputStream(pathForStreamFile);
             properties.load(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Properties file not found");
         }
+
 
     }
 
     public static String getProperties(String keyword){
         return properties.getProperty(keyword);
-    }
-}
-
+    }}
 

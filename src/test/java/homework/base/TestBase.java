@@ -2,7 +2,9 @@ package homework.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import utilites.BrowserUtils;
 import utilites.DriverUtil;
@@ -16,26 +18,23 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
-    public TestBase() {
-        PageFactory.initElements(DriverUtil.getDriver(), this);
-    }
 
+        //test base for code reusability
+        //use access modifier here
+        protected WebDriver driver;
 
-    public static String readPropertiesFile(String key) throws IOException {
-        Properties prop = new Properties();
+        @BeforeClass
+        public void setup(){
+            driver= DriverUtil.getDriver();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
 
-        String fileName = "lab13.properties";
-        File file = new File(fileName);
-        FileInputStream fis = new FileInputStream(file);
-
-        prop.load(fis);
-
-        String value = prop.getProperty(key);
-
-        return value;
-
-
-    }
+        @AfterClass
+        public void closing() throws InterruptedException {
+            BrowserUtils.wait(3);
+            //  driver.close();
+        }
     }
 
 
